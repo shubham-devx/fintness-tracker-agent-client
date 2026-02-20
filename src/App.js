@@ -26,7 +26,7 @@ function App() {
       setPlan("");
 
       const res = await axios.post(
-        "http://localhost:5000/api/agent/generate",
+        "expensestrack-backend-production.up.railway.app",
         form
       );
 
