@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import { jsPDF } from "jspdf";
+import { motion } from "framer-motion";
 import "./App.css";
 
 function App() {
@@ -36,31 +38,35 @@ function App() {
     }
   };
 
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    doc.setFontSize(16);
+    doc.text("AI Gym Trainer - Personalized Plan", 10, 15);
+    doc.setFontSize(11);
+    const splitText = doc.splitTextToSize(plan, 180);
+    doc.text(splitText, 10, 25);
+    doc.save("gym-plan.pdf");
+  };
+
   return (
     <div className="container">
-      <h1>💪 AI Gym Trainer</h1>
+      <motion.h1
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        💪 AI Gym Trainer
+      </motion.h1>
 
-      <div className="card">
-        <input
-          type="number"
-          name="age"
-          placeholder="Age"
-          onChange={handleChange}
-        />
-
-        <input
-          type="number"
-          name="weight"
-          placeholder="Weight (kg)"
-          onChange={handleChange}
-        />
-
-        <input
-          type="number"
-          name="height"
-          placeholder="Height (cm)"
-          onChange={handleChange}
-        />
+      <motion.div
+        className="card"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <input type="number" name="age" placeholder="Age" onChange={handleChange} />
+        <input type="number" name="weight" placeholder="Weight (kg)" onChange={handleChange} />
+        <input type="number" name="height" placeholder="Height (cm)" onChange={handleChange} />
 
         <select name="goal" onChange={handleChange}>
           <option value="">Select Goal</option>
@@ -76,16 +82,34 @@ function App() {
           <option value="Advanced">Advanced</option>
         </select>
 
-        <button onClick={generatePlan}>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={generatePlan}
+        >
           {loading ? "Generating..." : "Generate Plan"}
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
 
       {plan && (
-        <div className="result">
+        <motion.div
+          className="result"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
           <h2>Your Personalized Plan</h2>
           <pre>{plan}</pre>
-        </div>
+
+          <motion.button
+            className="download-btn"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={downloadPDF}
+          >
+            Download PDF
+          </motion.button>
+        </motion.div>
       )}
     </div>
   );
