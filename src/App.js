@@ -26,7 +26,7 @@ function App() {
       setPlan("");
 
       const res = await axios.post(
-        "https://fintness-tracker-agent-server.onrender.com/api/agent",
+        "https://fintness-tracker-agent-server.onrender.com/api/agent/generate",
         form
       );
 
