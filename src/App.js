@@ -26,7 +26,7 @@ function App() {
       setPlan("");
 
       const res = await axios.post(
-        "expensestrack-backend-production.up.railway.app",
+        "https://fintness-tracker-agent-server.onrender.com/",
         form
       );
 
