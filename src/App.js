@@ -159,14 +159,14 @@ function App() {
 
      {plan && (
   <motion.div
-    className="result"
+    className="result-card"
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
   >
-    <h2>Your Personalized Plan</h2>
+    <h2 className="result-title">Your Personalized Fitness Plan</h2>
 
-    <div className="plan-output">
-      {plan}
+    <div className="plan-content">
+      <pre>{plan}</pre>
     </div>
 
     <motion.button
