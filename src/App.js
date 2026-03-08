@@ -42,56 +42,33 @@ function App() {
   };
 
   const downloadPDF = () => {
-    const doc = new jsPDF();
+  const doc = new jsPDF();
 
-    const pageHeight = doc.internal.pageSize.height;
-    const margin = 10;
-    const lineHeight = 7;
+  const pageHeight = doc.internal.pageSize.height;
+  const margin = 10;
+  const lineHeight = 7;
 
-    doc.setFontSize(16);
-    doc.text("AI Gym Trainer - Personalized Plan", margin, margin);
+  doc.setFontSize(16);
+  doc.text("AI Gym Trainer - Personalized Plan", margin, margin);
 
-    doc.setFontSize(11);
+  doc.setFontSize(11);
 
-    const lines = doc.splitTextToSize(plan, 180);
+  const lines = doc.splitTextToSize(plan, 180);
 
-    let y = 20;
+  let y = 20;
 
-    lines.forEach((line) => {
-      if (y + lineHeight > pageHeight) {
-        doc.addPage();
-        y = margin;
-      }
+  lines.forEach((line) => {
+    if (y + lineHeight > pageHeight) {
+      doc.addPage();
+      y = margin;
+    }
 
-      doc.text(line, margin, y);
-      y += lineHeight;
-    });
+    doc.text(line, margin, y);
+    y += lineHeight;
+  });
 
-    doc.save("gym-plan.pdf");
-  };
-
-  const renderPlan = () => {
-    return plan.split("\n").map((line, index) => {
-
-      if (line.startsWith("#")) {
-        return (
-          <h3 key={index} className="plan-heading">
-            {line.replace("#", "").trim()}
-          </h3>
-        );
-      }
-
-      if (line.trim() === "") {
-        return <br key={index} />;
-      }
-
-      return (
-        <p key={index} className="plan-text">
-          {line}
-        </p>
-      );
-    });
-  };
+  doc.save("gym-plan.pdf");
+};
 
   return (
     <div className="container">
@@ -111,9 +88,26 @@ function App() {
         transition={{ duration: 0.5 }}
       >
 
-        <input type="number" name="age" placeholder="Age" onChange={handleChange} />
-        <input type="number" name="weight" placeholder="Weight (kg)" onChange={handleChange} />
-        <input type="number" name="height" placeholder="Height (cm)" onChange={handleChange} />
+        <input
+          type="number"
+          name="age"
+          placeholder="Age"
+          onChange={handleChange}
+        />
+
+        <input
+          type="number"
+          name="weight"
+          placeholder="Weight (kg)"
+          onChange={handleChange}
+        />
+
+        <input
+          type="number"
+          name="height"
+          placeholder="Height (cm)"
+          onChange={handleChange}
+        />
 
         <select name="goal" onChange={handleChange}>
           <option value="">Select Goal</option>
@@ -129,17 +123,23 @@ function App() {
           <option value="Advanced">Advanced</option>
         </select>
 
+        {/* Diet Preference */}
+
         <select name="dietType" onChange={handleChange}>
           <option value="">Diet Preference</option>
           <option value="Vegetarian">Vegetarian</option>
           <option value="Non-Vegetarian">Non-Vegetarian</option>
         </select>
 
+        {/* Workout Type */}
+
         <select name="workoutType" onChange={handleChange}>
           <option value="">Workout Type</option>
           <option value="Weight Training">Weight Training</option>
           <option value="Yoga">Yoga</option>
         </select>
+
+        {/* Food Log */}
 
         <textarea
           name="foodLog"
@@ -157,31 +157,26 @@ function App() {
 
       </motion.div>
 
-     {plan && (
-  <motion.div
-    className="result-card"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-  >
-    <h2 className="result-title">Your Personalized Fitness Plan</h2>
+      {plan && (
+        <motion.div
+          className="result"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2>Your Personalized Plan</h2>
+          <pre>{plan}</pre>
 
-    <div className="plan-content">
-  {plan.split("\n").map((line, index) => (
-    <p key={index}>{line}</p>
-  ))}
-</div>
-
-    <motion.button
-      className="download-btn"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      onClick={downloadPDF}
-    >
-      Download PDF
-    </motion.button>
-  </motion.div>
-)}
-
+          <motion.button
+            className="download-btn"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={downloadPDF}
+          >
+            Download PDF
+          </motion.button>
+        </motion.div>
+      )}
     </div>
   );
 }
