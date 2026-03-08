@@ -42,14 +42,33 @@ function App() {
   };
 
   const downloadPDF = () => {
-    const doc = new jsPDF();
-    doc.setFontSize(16);
-    doc.text("AI Gym Trainer - Personalized Plan", 10, 15);
-    doc.setFontSize(11);
-    const splitText = doc.splitTextToSize(plan, 180);
-    doc.text(splitText, 10, 25);
-    doc.save("gym-plan.pdf");
-  };
+  const doc = new jsPDF();
+
+  const pageHeight = doc.internal.pageSize.height;
+  const margin = 10;
+  const lineHeight = 7;
+
+  doc.setFontSize(16);
+  doc.text("AI Gym Trainer - Personalized Plan", margin, margin);
+
+  doc.setFontSize(11);
+
+  const lines = doc.splitTextToSize(plan, 180);
+
+  let y = 20;
+
+  lines.forEach((line) => {
+    if (y + lineHeight > pageHeight) {
+      doc.addPage();
+      y = margin;
+    }
+
+    doc.text(line, margin, y);
+    y += lineHeight;
+  });
+
+  doc.save("gym-plan.pdf");
+};
 
   return (
     <div className="container">
