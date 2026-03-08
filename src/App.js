@@ -11,6 +11,9 @@ function App() {
     height: "",
     goal: "",
     experience: "",
+    dietType: "",
+    workoutType: "",
+    foodLog: ""
   });
 
   const [plan, setPlan] = useState("");
@@ -50,6 +53,7 @@ function App() {
 
   return (
     <div className="container">
+
       <motion.h1
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -64,9 +68,27 @@ function App() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <input type="number" name="age" placeholder="Age" onChange={handleChange} />
-        <input type="number" name="weight" placeholder="Weight (kg)" onChange={handleChange} />
-        <input type="number" name="height" placeholder="Height (cm)" onChange={handleChange} />
+
+        <input
+          type="number"
+          name="age"
+          placeholder="Age"
+          onChange={handleChange}
+        />
+
+        <input
+          type="number"
+          name="weight"
+          placeholder="Weight (kg)"
+          onChange={handleChange}
+        />
+
+        <input
+          type="number"
+          name="height"
+          placeholder="Height (cm)"
+          onChange={handleChange}
+        />
 
         <select name="goal" onChange={handleChange}>
           <option value="">Select Goal</option>
@@ -82,6 +104,30 @@ function App() {
           <option value="Advanced">Advanced</option>
         </select>
 
+        {/* Diet Preference */}
+
+        <select name="dietType" onChange={handleChange}>
+          <option value="">Diet Preference</option>
+          <option value="Vegetarian">Vegetarian</option>
+          <option value="Non-Vegetarian">Non-Vegetarian</option>
+        </select>
+
+        {/* Workout Type */}
+
+        <select name="workoutType" onChange={handleChange}>
+          <option value="">Workout Type</option>
+          <option value="Weight Training">Weight Training</option>
+          <option value="Yoga">Yoga</option>
+        </select>
+
+        {/* Food Log */}
+
+        <textarea
+          name="foodLog"
+          placeholder="Enter today's food (Example: 2 roti, rice, dal, egg)"
+          onChange={handleChange}
+        />
+
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -89,6 +135,7 @@ function App() {
         >
           {loading ? "Generating..." : "Generate Plan"}
         </motion.button>
+
       </motion.div>
 
       {plan && (
