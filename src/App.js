@@ -157,30 +157,28 @@ function App() {
 
       </motion.div>
 
-      {plan && (
-        <motion.div
-          className="result"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
+     {plan && (
+  <motion.div
+    className="result"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+  >
+    <h2>Your Personalized Plan</h2>
 
-          <h2>Your Personalized Plan</h2>
+    <div className="plan-output">
+      {plan}
+    </div>
 
-          <div className="plan-output">
-            {renderPlan()}
-          </div>
-
-          <motion.button
-            className="download-btn"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={downloadPDF}
-          >
-            Download PDF
-          </motion.button>
-
-        </motion.div>
-      )}
+    <motion.button
+      className="download-btn"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={downloadPDF}
+    >
+      Download PDF
+    </motion.button>
+  </motion.div>
+)}
 
     </div>
   );

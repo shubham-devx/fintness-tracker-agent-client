@@ -172,13 +172,7 @@ pre {
   white-space: pre-line;
   line-height: 1.6;
 }
-.plan-output{
-background:white;
-padding:25px;
-border-radius:12px;
-box-shadow:0 8px 20px rgba(0,0,0,0.1);
-margin-top:20px;
-}
+
 
 .plan-heading{
 color:#007bff;
@@ -191,4 +185,14 @@ padding-bottom:5px;
 .plan-text{
 margin:6px 0;
 line-height:1.6;
+}
+.plan-output{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+margin-top:20px;
+line-height:1.6;
+white-space:pre-line;
+font-size:15px;
 }
