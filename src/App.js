@@ -72,10 +72,16 @@ function App() {
 
   // Convert AI text into sections
   const renderPlan = () => {
-    return plan.split("#").map((section, index) => {
-      if (!section.trim()) return null;
+  return plan
+    .split("#")
+    .map(section => section.trim())
+    .filter(section => section.length > 0)
+    .map((section, index) => {
 
-      const lines = section.split("\n");
+      const lines = section.split("\n").filter(line => line.trim() !== "");
+
+      if (lines.length === 0) return null;
+
       const title = lines[0];
       const content = lines.slice(1).join("\n");
 
@@ -86,7 +92,7 @@ function App() {
         </div>
       );
     });
-  };
+};
 
   return (
     <div className="container">
