@@ -166,8 +166,10 @@ function App() {
     <h2 className="result-title">Your Personalized Fitness Plan</h2>
 
     <div className="plan-content">
-      <pre>{plan}</pre>
-    </div>
+  {plan.split("\n").map((line, index) => (
+    <p key={index}>{line}</p>
+  ))}
+</div>
 
     <motion.button
       className="download-btn"
