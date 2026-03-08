@@ -70,29 +70,28 @@ function App() {
     doc.save("gym-plan.pdf");
   };
 
-  // Convert AI text into sections
   const renderPlan = () => {
-  return plan
-    .split("#")
-    .map(section => section.trim())
-    .filter(section => section.length > 0)
-    .map((section, index) => {
+    return plan.split("\n").map((line, index) => {
 
-      const lines = section.split("\n").filter(line => line.trim() !== "");
+      if (line.startsWith("#")) {
+        return (
+          <h3 key={index} className="plan-heading">
+            {line.replace("#", "").trim()}
+          </h3>
+        );
+      }
 
-      if (lines.length === 0) return null;
-
-      const title = lines[0];
-      const content = lines.slice(1).join("\n");
+      if (line.trim() === "") {
+        return <br key={index} />;
+      }
 
       return (
-        <div key={index} className="plan-card">
-          <h3>{title}</h3>
-          <p>{content}</p>
-        </div>
+        <p key={index} className="plan-text">
+          {line}
+        </p>
       );
     });
-};
+  };
 
   return (
     <div className="container">
@@ -163,11 +162,11 @@ function App() {
           className="result"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
         >
+
           <h2>Your Personalized Plan</h2>
 
-          <div className="plan-container">
+          <div className="plan-output">
             {renderPlan()}
           </div>
 
@@ -179,8 +178,10 @@ function App() {
           >
             Download PDF
           </motion.button>
+
         </motion.div>
       )}
+
     </div>
   );
 }
